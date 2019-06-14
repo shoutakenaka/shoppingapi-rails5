@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_165458) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
     t.integer "total"
     t.string "shipping_first_name"
     t.string "shipping_last_name"
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_165458) do
     t.string "billing_street_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
