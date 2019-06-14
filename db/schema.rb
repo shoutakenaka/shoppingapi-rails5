@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_14_164745) do
+ActiveRecord::Schema.define(version: 2019_06_14_165458) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,19 @@ ActiveRecord::Schema.define(version: 2019_06_14_164745) do
     t.integer "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_lines", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "item_id"
+    t.string "name"
+    t.integer "unit_price"
+    t.integer "quantity"
+    t.integer "subtotal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_order_lines_on_item_id"
+    t.index ["order_id"], name: "index_order_lines_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
