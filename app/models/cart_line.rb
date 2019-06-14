@@ -1,0 +1,2 @@
+class CartLine < ApplicationRecord
+end
