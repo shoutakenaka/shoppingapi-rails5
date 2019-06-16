@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :privileged!, only: %i[create update destroy]
+  before_action :ensure_user_is_admin, only: %i(create update destroy)
 
   def index
     items = Item.all
