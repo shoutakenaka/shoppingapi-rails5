@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_170310) do
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
     t.integer "total"
+    t.integer "status"
     t.string "shipping_first_name"
     t.string "shipping_last_name"
     t.string "shipping_phone"
