@@ -15,4 +15,12 @@ class ApplicationController < ActionController::API
   def current_user
     @current_user
   end
+
+  def privileged
+    current_user&.admin?
+  end
+
+  def privileged!
+    return render json: { code: 'access_denied' }, stauts: 403
+  end
 end
