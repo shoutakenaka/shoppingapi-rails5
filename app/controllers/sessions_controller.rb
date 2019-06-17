@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class SessionsController < ApplicationController
+  skip_before_action :authorize
+
   def create
     load_user
     if !@user.authenticate(params[:password])

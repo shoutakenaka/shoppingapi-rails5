@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  skip_before_action :authorize
+
   def create
     Customer.create!(
       username: params[:username],
