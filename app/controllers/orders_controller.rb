@@ -30,15 +30,13 @@ class OrdersController < ApplicationController
       billing_locality: billing_params[:locality],
       billing_street_address: billing_params[:street_address])
 
-    lines_params = params[:lines] || []
-    lines_params.each do |line|
-      item = Item.find(line[:item_id])
+    current_user.cart.cart_lines.each do |line|
       @order.order_lines.build(
-        item: item,
-        name: item.name,
-        unit_price: item.unit_price,
-        quantity: line[:quantity] || 0,
-        subtotal: item.unit_price * (line[:quantity] || 0))
+        item: line.item,
+        name: line.item.name,
+        unit_price: line.item.unit_price,
+        quantity: line.quantity,
+        subtotal: item.unit_price * line.quantity)
     end
     
     @order.total = order.order_lines.map { |o| o.subtotal }.sum
