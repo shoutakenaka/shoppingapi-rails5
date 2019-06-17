@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resource :cart, only: %i(show update)
   resources :customers, only: %i(create)
   resources :items, only: %i(index show create udpate destroy)
   resources :orders, only: %i(idnex show create update)
