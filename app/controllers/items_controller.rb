@@ -1,37 +1,40 @@
 class ItemsController < ApplicationController
   before_action :ensure_user_is_admin, only: %i(create update destroy)
+  before_action :set_base_url
 
   def index
-    items = Item.all
-    render json: {
-      items: items.map { |o| { id: o.id, name: o.name, unit_price: o.unit_price } }
-    }
+    @items = Item.all
   end
 
   def show
-    render json: Item.find(params[:id]).to_json(except: [:created_at, :updated_at])
+    @item = Item.find(params[:id])
   end
 
   def create
-    render json: Item.create!({
+    @item = Item.create!(
       name: params[:name],
       description: params[:description],
-      unit_price: params[:unit_price]
-    }).to_json(except: [:created_at, :updated_at])
+      unit_price: params[:unit_price])
   end
 
   def update
-    item = Item.find(params[:id])
-    render json: item.update!({
+    @item = Item.find(params[:id])
+    @item.update!({
       name: params[:name],
       description: params[:description],
       unit_price: params[:unit_price]
-    }).to_json(except: [:created_at, :updated_at])
+    })
   end
 
   def destroy
     item = Item.find(params[:id])
     item.destroy!
     render json: {}
+  end
+  
+  private
+  
+  def set_base_url
+    @base_url = request.url
   end
 end
