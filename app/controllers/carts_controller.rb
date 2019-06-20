@@ -2,12 +2,12 @@ class CartsController < ApplicationController
   before_action :ensure_user_is_customer
 
   def show
-    @cart = current_user.cart
+    load_cart
   end
 
   def update
     ActiveRecord::Base.transaction do
-      @cart = current_user.cart || current_user.create_cart(total: 0)
+      load_cart
       @cart.cart_lines.destroy_all
       items_params = params[:items] || []
       items_params.each do |o|
@@ -18,5 +18,11 @@ class CartsController < ApplicationController
       @cart.save!
     end
     render action: :show
+  end
+
+  private
+
+  def load_cart
+    @cart = current_user.cart || current_user.create_cart(total: 0)
   end
 end
