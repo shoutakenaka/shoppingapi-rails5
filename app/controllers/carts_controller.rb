@@ -12,9 +12,9 @@ class CartsController < ApplicationController
       items_params = params[:items] || []
       items_params.each do |o|
         item = Item.find(o[:id])
-        @cart.cart_liens.create!(item: item, quantity: o[:quantity] || 1)
+        @cart.cart_lines.create!(item: item, quantity: o[:quantity] || 1)
       end
-      @cart.total = @cart.cart_liens.map { |o| o.quantity * o.item.unit_price }.sum
+      @cart.total = @cart.cart_lines.map { |o| o.quantity * o.item.unit_price }.sum
       @cart.save!
     end
     render action: :show
