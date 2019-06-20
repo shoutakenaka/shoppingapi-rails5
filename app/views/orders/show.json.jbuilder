@@ -27,6 +27,7 @@ json.billing do
   street_address @order.billing_street_address
 end
 json.items @order.order_lines do |line|
+  json.id line.item.id
   json.name line.name
   json.unit_price line.unit_price
   json.quantity line.quantity
