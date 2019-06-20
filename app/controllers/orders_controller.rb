@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     ActiveRecord::Base.transaction do
       shipping_params = params[:shipping] || {}
       billing_params = params[:billing] || {}
-      @order = current_uesr.orders.build(
+      @order = current_user.orders.build(
         status: 1,
         shipping_first_name: shipping_params[:first_name],
         shipping_last_name: shipping_params[:last_name],
@@ -31,30 +31,35 @@ class OrdersController < ApplicationController
         billing_locality: billing_params[:locality],
         billing_street_address: billing_params[:street_address])
   
-      current_user.cart.cart_lines.each do |line|
+      cart = current_user.cart
+      cart.cart_lines.each do |line|
         @order.order_lines.build(
           item: line.item,
           name: line.item.name,
           unit_price: line.item.unit_price,
           quantity: line.quantity,
-          subtotal: item.unit_price * line.quantity)
+          subtotal: line.item.unit_price * line.quantity)
       end
       
-      @order.total = order.order_lines.map { |o| o.subtotal }.sum
+      @order.total = @order.order_lines.map { |o| o.subtotal }.sum
       @order.save!
-    end
 
-    render action: :show
+      cart.destroy
+
+      render action: :show
+    end
   end
   
   def update
-    load_order
-    case params[:status]
-    when 'shipped' then @order.status = 2
-    when 'cancelled' then @order.status = 3
+    ActiveRecord::Base.transaction do
+      load_order
+      case params[:status]
+      when 'shipped' then @order.status = 2
+      when 'cancelled' then @order.status = 3
+      end
+      @order.save!
+      render action: :show
     end
-    @order.save!
-    render action: :show
   end
 
   private
