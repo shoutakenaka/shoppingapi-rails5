@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :items, only: %i(index show create udpate destroy) do
     resource :image, only: %i(show), module: 'items'
   end
-  resources :orders, only: %i(idnex show create update)
+  resources :orders, only: %i(index show create update)
   resources :sessions, only: %i(create)
 end
