@@ -1,5 +1,5 @@
 class Cart < ApplicationRecord
-  belongs_to :customer, foreign_key: :user_id
+  belongs_to :customer
   has_many :cart_lines
   
   validates :customer, presence: true

@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 2019_06_17_153513) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "customer_id"
     t.integer "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_carts_on_user_id"
+    t.index ["customer_id"], name: "index_carts_on_customer_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2019_06_17_153513) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "customer_id"
     t.integer "total"
     t.integer "status"
     t.string "shipping_first_name"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_06_17_153513) do
     t.string "billing_street_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "sessions", force: :cascade do |t|
