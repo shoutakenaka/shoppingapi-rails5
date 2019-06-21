@@ -3,10 +3,10 @@ json.orders @orders do |order|
   json.total order.total
   json.ordered_at order.created_at
   json.status order.status_code
-  json.user order.user do |user| do
-    json.id user.id
-    json.username user.username
-    json.first_name user.first_name
-    json.last_name user.last_name
+  json.customer do
+    json.id order.customer.id
+    json.username order.customer.username
+    json.first_name order.customer.first_name
+    json.last_name order.customer.last_name
   end
 end

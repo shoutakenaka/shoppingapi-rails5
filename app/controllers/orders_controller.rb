@@ -66,17 +66,17 @@ class OrdersController < ApplicationController
 
   def load_order
     if current_user.admin?
-      @order = Order.includes(:user).find(params[:id])
+      @order = Order.includes(:customer).find(params[:id])
     elsif
-      @order = current_user.orders.includes(:user).find(params[:id])
+      @order = current_user.orders.includes(:customer).find(params[:id])
     end
   end
 
   def load_orders
     if current_user.admin?
-      @orders = Order.all.includes(:user)
+      @orders = Order.all.includes(:customer)
     elsif
-      @orders = current_user.orders.includes(:user)
+      @orders = current_user.orders.includes(:customer)
     end
   end
 end
