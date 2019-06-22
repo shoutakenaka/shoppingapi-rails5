@@ -7,16 +7,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-bucket
-  BucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties: 
-      Bucket: !Ref Bucket
-      PolicyDocument:
-        Statement: 
-        - Action: s3:GetObject
-          Effect: Allow
-          Resource: !Sub arn:aws:s3:::${Bucket}/*
-          Principal: '*'
   IAMUser:
     Type: AWS::IAM::User
     Properties:
