@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  [samurai-shopping-api]
+  This stack maintains S3 bucket to store item images for shopping api and IAM user performs upload.
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-bucket
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Statement: 
+        - Action: s3:GetObject
+          Effect: Allow
+          Resource: !Sub arn:aws:s3:::${Bucket}/*
+          Principal: '*'
+  IAMUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+      - PolicyName: default
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - s3:ListObjects
+            Resource: !Sub arn:aws:s3:::${Bucket}
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PubObject
+            Resource: !Sub arn:aws:s3:::${Bucket}/*
+      UserName: !Sub ${AWS::StackName}-user
