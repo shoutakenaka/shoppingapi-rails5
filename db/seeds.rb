@@ -27,7 +27,7 @@ ActiveRecord::Base.transaction do
       '仕　様：ステップムーブメント（連続秒針）\n' +
       '付属品：取扱説明書、保証書、単3電池\n',
     unit_price: 3780)
-  item1.image.attach(io: File.open(Rails.root.join('tmp', 'images', 'clock.jpg')), filename: 'clock.jpg')
+  item1.image.attach(io: File.open(Rails.root.join('images', 'clock.jpg')), filename: 'clock.jpg')
   
   item2 = Item.create!(
     name: 'Dolls RING',
@@ -47,7 +47,7 @@ ActiveRecord::Base.transaction do
       '※色変わりの風合いを楽しんでいただくためメッキなどをしていません。 \n' +
       '※その他、ご質問はお気軽にご連絡ください。\n',
     unit_price: 5940)
-  item2.image.attach(io: File.open(Rails.root.join('tmp', 'images', 'ring.jpg')), filename: 'ring.jpg')
+  item2.image.attach(io: File.open(Rails.root.join('images', 'ring.jpg')), filename: 'ring.jpg')
   
   item3 = Item.create!(
     name: 'no/26 Earrings',
@@ -75,7 +75,7 @@ ActiveRecord::Base.transaction do
       '\n' +
       '＊ラッピングBOXなしでも無料で簡易ギフトラッピング致します。\n',
     unit_price: 4200)
-  item3.image.attach(io: File.open(Rails.root.join('tmp', 'images', 'earring.jpg')), filename: 'earring.jpg')
+  item3.image.attach(io: File.open(Rails.root.join('images', 'earring.jpg')), filename: 'earring.jpg')
   
   item4 = Item.create!(
     name: 'iPhone cover',
@@ -102,7 +102,7 @@ ActiveRecord::Base.transaction do
       'C環境により、実際のカラーと異なって見える場合がございます。\n' +
       'あらかじめご了承ください。\n',
     unit_price: 2900)
-  item4.image.attach(io: File.open(Rails.root.join('tmp', 'images', 'iphonecover.jpg')), filename: 'iphonecover.jpg')
+  item4.image.attach(io: File.open(Rails.root.join('images', 'iphonecover.jpg')), filename: 'iphonecover.jpg')
   
   item5 = Item.create!(
     name: 'Cookie Box',
@@ -122,5 +122,5 @@ ActiveRecord::Base.transaction do
       '受注販売になります。\n' +
       'ご購入確認後準備でき次第発送いたします。\n',  
     unit_price: 2500)
-  item5.image.attach(io: File.open(Rails.root.join('tmp', 'images', 'cookie.jpg')), filename: 'cookie.jpg')
+  item5.image.attach(io: File.open(Rails.root.join('images', 'cookie.jpg')), filename: 'cookie.jpg')
 end
