@@ -7,7 +7,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    ActiveRecord::Base.transaction do
+      @item = Item.find(params[:id])
+      record_browsing_history
+    end
   end
 
   def create
@@ -33,6 +36,12 @@ class ItemsController < ApplicationController
   end
   
   private
+  
+  def record_browsing_history
+    history = BrowsingHistory.find_or_initialize_by(item: @item, user: current_user)
+    history.touch unless history.new_record?
+    history.save!
+  end
   
   def set_base_url
     @base_url = request.url
