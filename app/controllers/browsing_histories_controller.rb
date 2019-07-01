@@ -1,0 +1,2 @@
+class BrowsingHistoriesController < ApplicationController
+end
