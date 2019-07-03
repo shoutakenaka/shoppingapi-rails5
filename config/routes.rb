@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resource :cart, only: %i(show update)
   resources :browsing_histories, only: %i(index)
+  resources :categories, only: %i(index)
   resources :customers, only: %i(create)
   resources :items, only: %i(index show create udpate destroy) do
     resource :image, only: %i(show), module: 'items'
