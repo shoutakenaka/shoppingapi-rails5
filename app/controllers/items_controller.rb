@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_base_url
 
   def index
-    @items = Item.all
+    load_items
   end
 
   def show
@@ -36,7 +36,19 @@ class ItemsController < ApplicationController
   end
   
   private
-  
+
+  def load_items
+    q = Item.all
+    if params[:category_id]
+      q = q.where(category_id: params[:category_id].to_i)
+    end
+    if params[:q]
+      pattern = "%#{params[:q]}%"
+      q = q.where('(name LIKE ?) OR (description LIKE ?)', pattern, pattern)
+    end
+    @items = q
+  end
+
   def record_browsing_history
     history = BrowsingHistory.find_or_initialize_by(item: @item, user: current_user)
     history.touch unless history.new_record?
@@ -44,6 +56,6 @@ class ItemsController < ApplicationController
   end
   
   def set_base_url
-    @base_url = request.url
+    @base_url = request.base_url + request.path
   end
 end
